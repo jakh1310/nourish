@@ -1,7 +1,7 @@
 {
   "name": "nourish",
   "version": "0.0.0",
-  "author": "Jake Henderson <jakh1310@yahoo.com>",
+  "author": "jakh1310",
   "description": "Weight loss app",
   "license": null,
   "main": "./dist/electron/main.js",
@@ -72,7 +72,7 @@
     "css-loader": "^0.28.4",
     "del": "^2.2.1",
     "devtron": "^1.1.0",
-    "electron": "^1.7.2",
+    "electron": "^1.7.5",
     "electron-builder": "^19.10.0",
     "electron-debug": "^1.1.0",
     "electron-devtools-installer": "^2.0.1",

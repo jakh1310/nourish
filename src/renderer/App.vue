@@ -15,6 +15,8 @@
   }
 </script>
 
-<style>
+<style lang="stylus">
   /* CSS */
+  *
+    font-family 'Saira', sans-serif
 </style>

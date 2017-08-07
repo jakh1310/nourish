@@ -4,7 +4,6 @@ import axios from 'axios'
 import App from './App'
 import store from './store'
 
-import 'font-awesome/css/font-awesome'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios

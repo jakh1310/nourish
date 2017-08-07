@@ -1,6 +1,6 @@
 <template>
   <div id="graph">
-    {{ data }} {{ date.dateString }}
+    Add graph here
   </div>
 </template>
 
