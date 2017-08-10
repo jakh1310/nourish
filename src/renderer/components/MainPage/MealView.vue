@@ -10,9 +10,11 @@
         <div class="meal" v-for="(meal, index) in meals">
           <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
         </div>
+        <div class="meal">
+          <span>Total</span><span class="right">{{ totalCalories }}</span>
+        </div>
       </div>
     </div>
-
     <div id="footer">
       <div id="add-button" @click="showModal()">+</div>
     </div>
@@ -72,6 +74,13 @@
       },
       dateString () {
         return this.$store.state.dateString
+      },
+      totalCalories () {
+        let total = 0
+        this.meals.forEach((val, index) => {
+          total += parseInt(val.calories)
+        })
+        return total
       }
     },
     activated () {
@@ -161,12 +170,19 @@
 
   .meal
     position relative
-    left 2%
-    width 96%
+    width 100%
+    padding-left 12px
+    padding-right 12px
     color #ccc
+
+    &:hover
+      background-color #22222233
 
     &:not(:last-child)
       border-bottom 1px solid #333
+
+    &:last-child
+      border-top 1px solid darken(col1, 10)
 
     span
       font-size 24px
