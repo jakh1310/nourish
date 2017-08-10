@@ -21,6 +21,7 @@
         <input type="text" v-model="mealName" placeholder="Meal Name" ref="mealName"></input>
         <input type="number" min="0" v-model="calories" placeholder="Calories"></input>
         <button @click="addMeal()">Add Meal</button>
+        <button class="right" @click="cancelAddMeal()">Cancel</button>
       </form>
     </div>
   </div>
@@ -44,7 +45,6 @@
           })
 
           this.calories = null, this.mealName = null
-          this.$refs.mealName.focus()
           this.addMealShow = false
         } else {
           // Handle invalid input
@@ -61,6 +61,9 @@
         setTimeout(() => {
           this.$refs.mealName.focus()
         }, 50)
+      },
+      cancelAddMeal () {
+        this.addMealShow = false
       }
     },
     computed: {
@@ -116,11 +119,13 @@
       padding 2px 8px 2px 8px
       width 120px
       position relative
-      left calc(50% - 60px)
-      margin-top 12px
+      margin 13px
       background none
       cursor pointer
       color #ccc
+
+      &.right
+        float right
 
       &:hover
         background-color #22222299
