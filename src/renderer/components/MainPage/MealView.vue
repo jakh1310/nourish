@@ -101,7 +101,19 @@
     position absolute
     left calc(50% - 150px)
     top calc(50% - 100px)
-    background-color #22222299
+    background-color #303030
+    z-index 10
+
+    &::after 
+      content ""
+      background-image url('lines2.png')
+      opacity 0.5
+      top 0
+      left 0
+      bottom 0
+      right 0
+      position absolute
+      z-index -1
 
     input
       font-size 24px

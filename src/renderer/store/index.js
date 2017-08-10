@@ -26,6 +26,7 @@ export default new Vuex.Store({
         console.error(loadedData.stack)
       }
     },
+
     addMeal (state, payload) {
       const meal = {}
       meal.name = payload.name
@@ -36,9 +37,11 @@ export default new Vuex.Store({
       }
       state.meals.push(meal)
     },
+
     removeMeal (state, mealID) {
       state.meals.splice(mealID, 1)
     },
+
     loadMeals (state, currentID) {
       //state.data[currentID] = state.meals
       state.date = date.getDateID(state.offset)
@@ -49,12 +52,14 @@ export default new Vuex.Store({
         state.meals = undefined
       }
     },
+
     saveData (state) {
       console.log('saved data')
       state.data[state.date] = state.meals
       console.log(state.data)
       io.saveData(state.data)
     },
+    
     newMeal (state, payload) {
       state.data[state.date] = state.meals
 
