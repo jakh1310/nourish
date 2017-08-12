@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { remote } from 'electron'
+import { date } from './'
 
 const path = remote.app.getPath('userData') + '\\nDB'
 const io = {}
@@ -31,6 +32,7 @@ io.loadData = () => {
   } catch (err) {
     if (err.code === 'ENOENT') {
       const newData = {}
+      newData[date.getDateID(0)] = []
 
       data = newData
       fs.writeFileSync(path + '\\test.json', JSON.stringify(newData), { encoding: 'utf8', flag: 'wx' })
