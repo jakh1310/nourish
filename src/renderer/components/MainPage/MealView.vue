@@ -6,24 +6,44 @@
         <div id="date"><h1>{{ dateString }}</h1></div>
         <div class="button right" @click="newMeal(false)"><span class="lnr lnr-chevron-right"></span></div>
       </div>
+
       <div id="meals">
+        <div class="mealHeader">Breakfast
+          <div class="add-button right">+</div>
+        </div>
         <div class="meal" v-for="(meal, index) in meals">
           <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
         </div>
-        <div class="meal">
+        <div class="mealHeader">Lunch
+          <div class="add-button right">+</div>
+        </div>
+        <div class="meal" v-for="(meal, index) in meals">
+          <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
+        </div>
+        <div class="mealHeader">Dinner
+          <div class="add-button right">+</div>
+        </div>
+        <div class="meal" v-for="(meal, index) in meals">
+          <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
+        </div>
+      </div>
+
+      <div id="footer">
+        <div class="total">
           <span>Total</span><span class="right">{{ totalCalories }}</span>
+        </div>
+        <div class="goal">
+          <span>Goal</span><span class="right">{{ goalCalories }}</span>
         </div>
       </div>
     </div>
-    <div id="footer">
-      <div id="add-button" @click="showModal()">+</div>
-    </div>
+
     <div id="addMealModal" v-show="addMealShow">
       <form @submit.prevent="">
         <input type="text" v-model="mealName" placeholder="Meal Name" ref="mealName"></input>
         <input type="number" min="0" v-model="calories" placeholder="Calories"></input>
         <button @click="addMeal()">Add Meal</button>
-        <button class="right" @click="cancelAddMeal()">Cancel</button>
+        <button class="right" @click="hideModal()">Cancel</button>
       </form>
     </div>
   </div>
@@ -64,7 +84,7 @@
           this.$refs.mealName.focus()
         }, 50)
       },
-      cancelAddMeal () {
+      hideModal () {
         this.addMealShow = false
       }
     },
@@ -81,6 +101,11 @@
           total += parseInt(val.calories)
         })
         return total
+      },
+      mealTypes (mealType) {
+        return this.meals.filter((meal) => {
+          return meal.type === mealType
+        })
       }
     },
     activated () {
@@ -91,6 +116,18 @@
 
 <style scoped lang="stylus">
   col1 = #d6982c
+
+  .mealHeader
+    color #ccc
+    font-size 26px
+    border-bottom 1px solid darken(col1, 10)
+    box-sizing border-box
+    padding-left 12px
+    padding-right 12px
+    text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
+
+    &:not(:first-child)
+      border-top 1px solid darken(col1, 10)
 
   #addMealModal
     width 300px
@@ -151,24 +188,31 @@
       &:hover
         background-color #22222299
 
+  #meals
+    overflow-x hidden
+    overflow-y auto
+    height calc(100vh - 133px)
+
   #footer
     width 100%
-    height 60px
+    height 78px
 
-  #add-button
+  .add-button
+    float right
     font-size 28px
+    height 30px
     border 1px solid #333
     outline 1px solid col1
     outline-offset -2px
-    width 60px
-    height 30px
+    position relative
+    top 5px
+    padding-left 15px
+    padding-right 15px
     text-align center
     line-height 23px
-    position relative
-    left calc(50% - 30px)
-    top calc(50% - 15px)
     cursor pointer
     color #ccc
+    text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
 
     &:hover
       background-color #22222299
@@ -183,9 +227,10 @@
   .meal
     position relative
     width 100%
-    padding-left 12px
+    padding-left 28px
     padding-right 12px
     color #ccc
+    text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
 
     &:hover
       background-color #22222233
@@ -193,14 +238,25 @@
     &:not(:last-child)
       border-bottom 1px solid #333
 
-    &:last-child
-      border-top 1px solid darken(col1, 10)
-
     span
       font-size 24px
 
       &.right
         float right
+
+  .total, .goal
+    position relative
+    width 100%
+    padding-left 12px
+    padding-right 12px
+    color #ccc
+    border-top 1px solid darken(col1, 10)
+    font-size 24px
+    text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
+
+    span.right
+      font-size 24px
+      float right
 
   #header
     height 55px
@@ -212,11 +268,7 @@
     line-height 54px
     color col1
     background-color #33333388
-    text-shadow:
-      -1px -1px 0 #222,  
-      1px -1px 0 #222,
-      -1px 1px 0 #222,
-      1px 1px 0 #222;
+    text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
 
   .button
     font-size 18px
@@ -235,7 +287,6 @@
 
   #insideWrapper
     width 100%
-    height calc(100vh - 60px)
 
   #date
     float left
