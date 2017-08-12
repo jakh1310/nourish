@@ -247,8 +247,8 @@
   .meal
     position relative
     width 100%
-    padding-left 28px
-    padding-right 12px
+    padding-left 24px
+    padding-right 16px
     color #ccc
     text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
 
@@ -259,7 +259,7 @@
       border-bottom 1px solid #333
 
     span
-      font-size 24px
+      font-size 20px
 
       &.right
         float right
