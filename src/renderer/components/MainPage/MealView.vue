@@ -9,28 +9,28 @@
 
       <div id="meals">
         <div class="mealHeader">Breakfast
-          <div class="add-button right">+</div>
+          <div class="add-button right" @click="showModal('breakfast')">+</div>
         </div>
-        <div class="meal" v-for="(meal, index) in meals">
+        <div class="meal" v-for="(meal, index) in mealTypes('breakfast')">
           <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
         </div>
         <div class="mealHeader">Lunch
-          <div class="add-button right">+</div>
+          <div class="add-button right" @click="showModal('lunch')">+</div>
         </div>
-        <div class="meal" v-for="(meal, index) in meals">
+        <div class="meal" v-for="(meal, index) in mealTypes('lunch')">
           <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
         </div>
         <div class="mealHeader">Dinner
-          <div class="add-button right">+</div>
+          <div class="add-button right" @click="showModal('dinner')">+</div>
         </div>
-        <div class="meal" v-for="(meal, index) in meals">
+        <div class="meal" v-for="(meal, index) in mealTypes('dinner')">
           <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
         </div>
       </div>
 
       <div id="footer">
         <div class="total">
-          <span>Total</span><span class="right">{{ totalCalories }}</span>
+          <span>Total</span><span class="right" :style="overCalorieGoal">{{ totalCalories }}</span>
         </div>
         <div class="goal">
           <span>Goal</span><span class="right">{{ goalCalories }}</span>
@@ -55,7 +55,9 @@
       return {
         calories: null,
         mealName: null,
-        addMealShow: false
+        addMealShow: false,
+        mealType: '',
+        goalCalories: 2000
       }
     },
     methods: {
@@ -63,7 +65,8 @@
         if (this.calories && this.mealName) {
           this.$store.commit('addMeal', { 
             name: this.mealName, 
-            calories: this.calories 
+            calories: this.calories,
+            type: this.mealType 
           })
 
           this.calories = null, this.mealName = null
@@ -78,7 +81,8 @@
       newMeal (type) {
         this.$store.commit('newMeal', { prev: type })
       },
-      showModal () {
+      showModal (type) {
+        this.mealType = type
         this.addMealShow = true
         setTimeout(() => {
           this.$refs.mealName.focus()
@@ -86,6 +90,13 @@
       },
       hideModal () {
         this.addMealShow = false
+      },
+      mealTypes (mealType) {
+        if (this.$store.state.meals !== undefined) {
+          return this.$store.state.meals.filter((meal) => {
+            return meal.type === mealType
+          })
+        }
       }
     },
     computed: {
@@ -97,15 +108,24 @@
       },
       totalCalories () {
         let total = 0
-        this.meals.forEach((val, index) => {
-          total += parseInt(val.calories)
-        })
+        if (this.meals !== undefined) {
+          this.meals.forEach((val, index) => {
+            total += parseInt(val.calories)
+          })
+        }
+        
         return total
       },
-      mealTypes (mealType) {
-        return this.meals.filter((meal) => {
-          return meal.type === mealType
-        })
+      overCalorieGoal () {
+        if (this.totalCalories > this.goalCalories) {
+          return {
+            color: '#a00'
+          }
+        } else {
+          return {
+            color: '#0a0'
+          }
+        }
       }
     },
     activated () {

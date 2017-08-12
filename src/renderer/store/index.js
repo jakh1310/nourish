@@ -31,6 +31,7 @@ export default new Vuex.Store({
       const meal = {}
       meal.name = payload.name
       meal.calories = payload.calories
+      meal.type = payload.type
 
       if (state.meals === undefined) {
         state.meals = []
@@ -43,7 +44,6 @@ export default new Vuex.Store({
     },
 
     loadMeals (state, currentID) {
-      //state.data[currentID] = state.meals
       state.date = date.getDateID(state.offset)
       state.dateString = date.getDateString(state.offset)
       if (state.data[state.date] !== undefined) {
@@ -59,7 +59,7 @@ export default new Vuex.Store({
       console.log(state.data)
       io.saveData(state.data)
     },
-    
+
     newMeal (state, payload) {
       state.data[state.date] = state.meals
 

@@ -1,6 +1,7 @@
 <template>
   <div id="graph">
     Add graph here
+    {{ data }}
   </div>
 </template>
 
