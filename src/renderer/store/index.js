@@ -15,16 +15,7 @@ export default new Vuex.Store({
   },
   mutations: {
     fetchData (state) {
-      let loadedData = {}
-
-      console.log('Loading data')
-      loadedData = io.loadData()
-
-      if (loadedData.code === 'SUCCESS') {
-        state.data = loadedData.data
-      } else {
-        console.error(loadedData.stack)
-      }
+      loadData(state)
     },
 
     addMeal (state, payload) {
@@ -37,13 +28,23 @@ export default new Vuex.Store({
         state.meals = []
       }
       state.meals.push(meal)
+
+      state.data[state.date] = state.meals
+      io.saveData(state.data)
+
+      loadData(state)
     },
 
     removeMeal (state, mealID) {
       state.meals.splice(mealID, 1)
+
+      state.data[state.date] = state.meals
+      io.saveData(state.data)
+
+      loadData(state)
     },
 
-    loadMeals (state, currentID) {
+    loadMeals (state) {
       state.date = date.getDateID(state.offset)
       state.dateString = date.getDateString(state.offset)
       if (state.data[state.date] !== undefined) {
@@ -79,3 +80,18 @@ export default new Vuex.Store({
     }
   }
 })
+
+// Private Vuex Functions
+
+function loadData(state) {
+  let loadedData = {}
+
+  console.log('Loading data')
+  loadedData = io.loadData()
+
+  if (loadedData.code === 'SUCCESS') {
+    state.data = loadedData.data
+  } else {
+    console.error(loadedData.stack)
+  }
+}
