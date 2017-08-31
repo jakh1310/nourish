@@ -18,5 +18,5 @@
 <style lang="stylus">
   /* CSS */
   *
-    font-family 'Saira', sans-serif
+    font-family Arial, Helvetica, sans-serif
 </style>

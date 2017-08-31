@@ -30,7 +30,7 @@
 
       <div id="footer">
         <div class="total">
-          <span>Total</span><span class="right" :style="overCalorieGoal">{{ totalCalories }}</span>
+          <span>Total</span><span class="right">{{ totalCalories }}</span>
         </div>
         <div class="goal">
           <span>Goal</span><span class="right">{{ goalCalories }}</span>
@@ -39,9 +39,12 @@
     </div>
 
     <div id="addMealModal" v-show="addMealShow">
+      <h3>Add Meal</h3>
       <form @submit.prevent="">
-        <input type="text" v-model="mealName" placeholder="Meal Name" ref="mealName"></input>
-        <input type="number" min="0" v-model="calories" placeholder="Calories"></input>
+        <label for="mealName" id="meal-label">NAME</label>
+        <input type="text" v-model="mealName" ref="mealName" id="mealName"></input>
+        <label for="calories" id="calorie-label">CALORIES</label>
+        <input type="number" min="0" v-model="calories" id="calories"></input>
         <button @click="addMeal()">Add Meal</button>
         <button class="right" @click="hideModal()">Cancel</button>
       </form>
@@ -115,17 +118,6 @@
         }
         
         return total
-      },
-      overCalorieGoal () {
-        if (this.totalCalories > this.goalCalories) {
-          return {
-            color: '#a00'
-          }
-        } else {
-          return {
-            color: '#0a0'
-          }
-        }
       }
     },
     activated () {
@@ -136,54 +128,58 @@
 
 <style scoped lang="stylus">
   col1 = #d6982c
+  white = #e9e9e9
+  black = #272727
 
   .mealHeader
-    color #ccc
+    color black
     font-size 26px
-    border-bottom 1px solid darken(col1, 10)
     box-sizing border-box
     padding-left 12px
     padding-right 12px
-    text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
-
-    &:not(:first-child)
-      border-top 1px solid darken(col1, 10)
+    background-color darken(white, 10)
+    border-bottom 1px solid black
 
   #addMealModal
     width 300px
     height 200px
-    border 1px solid #333
-    outline 1px solid col1
-    outline-offset -2px
+    border 1px solid black
     position absolute
     left calc(50% - 150px)
     top calc(50% - 100px)
-    background-color #303030
+    background-color white
     z-index 10
 
-    &::after 
-      content ""
-      background-image url('lines2.png')
-      opacity 0.5
-      top 0
-      left 0
-      bottom 0
-      right 0
+    label
       position absolute
-      z-index -1
+      font-size 11px
+
+      &#meal-label
+        top 42px
+        left 14px
+
+      &#calorie-label
+        left 14px
+        top 95px
+
+    h3
+      font-size 24px
+      font-weight 400
+      text-align center
+      padding 4px
+      border-bottom 1px solid lighten(black, 10)
 
     input
       font-size 24px
       width 90%
       left 5%
       position relative
-      margin 12px 0px 12px 0px
-      background-color #22222233
+      margin 18px 0px 6px 0px
+      background none
       border none
-      border-bottom 1px solid col1
+      border-bottom 1px solid black
       outline none
-      text-align center
-      color #ccc
+      color black
 
     input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button 
       -webkit-appearance none
@@ -191,22 +187,20 @@
 
     button
       font-size 20px
-      border 1px solid #333
-      outline 1px solid col1
-      outline-offset -2px
+      border 1px solid black
       padding 2px 8px 2px 8px
       width 120px
       position relative
       margin 13px
       background none
       cursor pointer
-      color #ccc
+      color black
 
       &.right
         float right
 
       &:hover
-        background-color #22222299
+        background-color darken(white, 20)
 
   #meals
     overflow-x hidden
@@ -219,41 +213,37 @@
 
   .add-button
     float right
-    font-size 28px
-    height 30px
-    border 1px solid #333
-    outline 1px solid col1
-    outline-offset -2px
+    font-size 22px
+    height 23px
+    border 1px solid black
     position relative
-    top 5px
-    padding-left 15px
-    padding-right 15px
+    top 4px
+    padding-left 10px
+    padding-right 10px
     text-align center
-    line-height 23px
+    line-height 21px
     cursor pointer
-    color #ccc
-    text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
+    color black
 
     &:hover
-      background-color #22222299
+      background-color darken(white, 20)
 
   #mealsWrapper
     position relative
     height 100%
     width 100%
-    background-color #444
-    background-image url('lines2.png')
+    background-color white
 
   .meal
     position relative
     width 100%
-    padding-left 24px
-    padding-right 16px
-    color #ccc
-    text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
+    padding-left 20px
+    padding-right 14px
+    line-height 24px
+    color black
 
     &:hover
-      background-color #22222233
+      background-color darken(white, 20)
 
     &:not(:last-child)
       border-bottom 1px solid #333
@@ -269,10 +259,9 @@
     width 100%
     padding-left 12px
     padding-right 12px
-    color #ccc
-    border-top 1px solid darken(col1, 10)
+    color black
+    border-top 1px solid black
     font-size 24px
-    text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
 
     span.right
       font-size 24px
@@ -280,15 +269,14 @@
 
   #header
     height 55px
-    border-bottom 1px solid darken(col1, 10)
+    border-bottom 1px solid black
 
   h1
     text-align center
     font-weight 400
     line-height 54px
-    color col1
-    background-color #33333388
-    text-shadow -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222
+    color black
+    background-color darken(white, 20)
 
   .button
     font-size 18px
@@ -299,11 +287,11 @@
     width 22px
     cursor pointer
     float left
-    background-color #33333388
-    color #bbb
+    background-color darken(white, 20)
+    color black
 
     &:hover
-      background #666
+      background darken(white, 40)
 
   #insideWrapper
     width 100%
