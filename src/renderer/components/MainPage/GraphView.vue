@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import { date } from '../../shared'
+  import { date } from '../../utils'
 
   export default {
     data () {

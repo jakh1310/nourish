@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { io, date } from '../shared'
+import { io, date } from '../utils'
 
 Vue.use(Vuex)
 

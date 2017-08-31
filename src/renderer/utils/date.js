@@ -1,24 +1,17 @@
-const dateHandler = {}
+const date = {}
 
-function d () {
-  const date = new Date()
-  const dd = date.getDate()
-  const mm = date.getMonth()
-  const yy = date.getFullYear()
-
-  return { dd, mm, yy }
-}
 
 function dateOffset (offset) {
-  const date = new Date(d().yy, d().mm, d().dd + offset)
-  const dd = date.getDate()
-  const mm = date.getMonth()
-  const yy = date.getFullYear()
+  const t = new Date()
+  const d = new Date(t.getFullYear(), t.getMonth(), t.getDate() + offset)
+  const dd = d.getDate()
+  const mm = d.getMonth()
+  const yy = d.getFullYear()
 
   return { dd, mm, yy }
 }
 
-dateHandler.getDateString = (offset = 0) => {
+date.getDateString = (offset = 0) => {
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   let month = months[dateOffset(offset).mm]
   let year = dateOffset(offset).yy
@@ -38,7 +31,7 @@ dateHandler.getDateString = (offset = 0) => {
   return `${month} ${day}, ${year}`
 }
 
-dateHandler.getDateID = (offset = 0) => {
+date.getDateID = (offset = 0) => {
   const day = (dateOffset(offset).dd < 10) ? '0'+dateOffset(offset).dd : dateOffset(offset).dd
   const month = (dateOffset(offset).mm < 9) ? '0'+(dateOffset(offset).mm+1) : dateOffset(offset).mm
   const year = dateOffset(offset).yy
@@ -46,4 +39,4 @@ dateHandler.getDateID = (offset = 0) => {
   return day + month + year
 }
 
-export default dateHandler
+export default date
