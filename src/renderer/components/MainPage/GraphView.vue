@@ -1,5 +1,5 @@
 <template>
-  <div id="graph" v-on:resize="console.log('hi')">
+  <div id="graph">
     
   </div>
 </template>

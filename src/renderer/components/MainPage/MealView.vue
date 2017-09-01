@@ -45,7 +45,7 @@
         <input type="text" v-model="mealName" ref="mealName" id="mealName"></input>
         <label for="calories" id="calorie-label">CALORIES</label>
         <input type="number" min="0" v-model="calories" id="calories"></input>
-        <button @click="addMeal()">Add Meal</button>
+        <button @click="addMeal()">Okay</button>
         <button class="right" @click="hideModal()">Cancel</button>
       </form>
     </div>
@@ -240,6 +240,7 @@
     padding-left 20px
     padding-right 14px
     line-height 24px
+    font-size 20px
     color black
 
     &:hover

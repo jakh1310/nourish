@@ -85,8 +85,7 @@ export default new Vuex.Store({
 
 function loadData(state) {
   let loadedData = {}
-
-  console.log('Loading data')
+  
   loadedData = io.loadData()
 
   if (loadedData.code === 'SUCCESS') {

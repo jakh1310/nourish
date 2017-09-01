@@ -41,7 +41,6 @@ io.loadData = () => {
       stack = err.stack
     }
   }
-  console.log(data)
 
   return { code, data, stack }
 }
