@@ -142,6 +142,7 @@
     top calc(50% - 100px)
     background-color white
     z-index 10
+    box-shadow 0 6px 12px black
 
     label
       position absolute
