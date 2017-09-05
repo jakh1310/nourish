@@ -11,20 +11,20 @@
         <div class="mealHeader">Breakfast
           <div class="add-button right" @click="showModal('breakfast')">+</div>
         </div>
-        <div class="meal" v-for="(meal, index) in mealTypes('breakfast')">
-          <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
+        <div class="meal" v-for="(meal, index) in meals"  :key="index" v-if="meal.type === 'breakfast'">
+          <span @click="removeMeal(index)">X</span> <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
         </div>
         <div class="mealHeader">Lunch
           <div class="add-button right" @click="showModal('lunch')">+</div>
         </div>
-        <div class="meal" v-for="(meal, index) in mealTypes('lunch')">
-          <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
+        <div class="meal" v-for="(meal, index) in meals"  :key="index" v-if="meal.type === 'lunch'">
+          <span @click="removeMeal(index)">X</span> <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
         </div>
         <div class="mealHeader">Dinner
           <div class="add-button right" @click="showModal('dinner')">+</div>
         </div>
-        <div class="meal" v-for="(meal, index) in mealTypes('dinner')">
-          <span>{{ meal.name }}</span><span class="right">{{ meal.calories }}</span>
+        <div class="meal" v-for="(meal, index) in meals" :key="index" v-if="meal.type === 'dinner'">
+          <span @click="removeMeal(index)">X</span> <span>{{ meal.name }} </span><span class="right">{{ meal.calories }}</span>
         </div>
       </div>
 
@@ -79,7 +79,8 @@
         }
       },
       removeMeal (index) {
-        this.$store.commit('removeMeal', index)
+        console.log(index)
+        // this.$store.commit('removeMeal', index)
       },
       newMeal (type) {
         this.$store.commit('newMeal', { prev: type })
@@ -93,13 +94,6 @@
       },
       hideModal () {
         this.addMealShow = false
-      },
-      mealTypes (mealType) {
-        if (this.$store.state.meals !== undefined) {
-          return this.$store.state.meals.filter((meal) => {
-            return meal.type === mealType
-          })
-        }
       }
     },
     computed: {
