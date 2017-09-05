@@ -45,7 +45,7 @@
         graphData[index].calories = getTotalCalories(this.$store.state.data[key])
       })
 
-      graph.updateData(this.graphData)
+      graph.updateData(graphData)
     },
     created () {
       this.$store.commit('fetchData')
@@ -58,9 +58,9 @@
     },
     mounted () {
       el = this.$el
-      graph = new d3Wrapper("#graph")
+      graph = new d3Wrapper("#graph", el.clientWidth, el.clientHeight)
 
-      graph.setSize(el.clientWidth, el.clientHeight)
+      graph.updateData(graphData)
     },
     computed: {
       data () {
@@ -71,16 +71,18 @@
 </script>
 
 <style lang="stylus">
+  white = #e9e9e9
+
   #graph
     position relative
     left 10px
     top 10px
     height calc(100% - 20px)
     width calc(100% - 20px)
-    background-color #666
+    background-color white
 
   .line
     fill none
-    stroke steelblue
+    stroke green
     stroke-width 2px
 </style>
