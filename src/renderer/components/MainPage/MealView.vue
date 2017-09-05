@@ -79,8 +79,7 @@
         }
       },
       removeMeal (index) {
-        console.log(index)
-        // this.$store.commit('removeMeal', index)
+        this.$store.commit('removeMeal', index)
       },
       newMeal (type) {
         this.$store.commit('newMeal', { prev: type })
