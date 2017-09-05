@@ -7,7 +7,8 @@
 <script>
   import { date, d3Wrapper } from '../../utils'
 
-  let graph, el, timeout, graphData = []
+  let graph, el, timeout
+  const graphData = []
 
   function getTotalCalories (arr) {
     let total = 0

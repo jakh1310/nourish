@@ -32,13 +32,6 @@ class d3w {
     this.svg.append("path")
       .attr("class", "line")
 
-    this.svg.selectAll("dot")
-      .enter().append("circle")
-        .attr("class", "dot")
-        .attr("r", 2.5)
-        .attr("cx", (d) => { return this.x(d.date) })
-        .attr("cy", (d) => { return this.y(d.calories) })
-
     this.svg.append("g")
       .attr("transform", "translate(0," + this.height + ")")
       .attr("class", "x-axis")
@@ -50,7 +43,6 @@ class d3w {
   }
 
   updateData(data) {
-    console.log(data)
     data.forEach((d) => {
       d.date = parseDate(d.date)
       d.calories = +d.calories
@@ -59,15 +51,11 @@ class d3w {
     this.x.domain(d3.extent(data, (d) => { return d.date }))
     this.y.domain([0, d3.max(data, (d) => { return d.calories })])
 
-    this.el.transition().duration(1000)
+    this.el.transition()
 
     this.svg.select(".line")
       //.duration(750)
       .attr("d", this.line(data))
-
-    this.svg.selectAll(".dot")
-      .attr("cx", (d) => { return this.x(d.date) })
-      .attr("cy", (d) => { return this.y(d.calories) })
 
     this.svg.select(".x-axis")
       .call(d3.axisBottom(this.x))
